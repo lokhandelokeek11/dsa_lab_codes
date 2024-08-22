@@ -54,7 +54,8 @@ void employee_database::merge(employee_database em[], int l, int m, int r) {
 
     int i = 0, j = 0, k = l;
     while (i < n1 && j < n2) {
-        if (L[i].emp_id <= R[j].emp_id) {
+        
+        if (L[i].emp_name <= R[j].emp_name) {
             em[k].emp_id = L[i].emp_id;
             em[k].emp_name = L[i].emp_name;
             i++;
@@ -85,14 +86,33 @@ int main() {
     int n;
     cout << "Enter the number of employees: ";
     cin >> n;
-
-    
     employee_database em[n];
+    char choice;
 
-    em[0].input(em, n);
-    em[0].merge_sort(em, 0, n - 1);
-    cout << "Sorted Employee Data (by ID):" << endl;
-    em[0].putdata(em, 0, n - 1);
+    do {
+        cout << "1. Input employee data\n";
+        cout << "2. Sort employee data using Merge Sort\n";
+        cout << "3. Display employee data\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
 
+        switch (choice) {
+            case '1':
+                em[0].input(em, n);
+                break;
+            case '2':
+                em[0].merge_sort(em, 0, n - 1);
+                break;
+            case '3':
+                cout << "Sorted Employee Data (by Name):" << endl;
+                em[0].putdata(em, 0, n - 1);
+                break;
+            default:
+                cout << "Invalid choice. Please try again." << endl;
+                break;
+        }
+        cout << "Do you want to continue? (y/n): ";
+        cin >> choice;
+    } while (choice == 'y');
     return 0;
 }
